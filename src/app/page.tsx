@@ -11,8 +11,15 @@ import {
   SignOutButton,
   SignUpButton,
 } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-function page() {
+async function page() {
+  const user = await currentUser();
+
+  //redirect auth user to dashboard
+  if (user) redirect("/dashboard");
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
